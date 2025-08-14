@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title id="faculty-title">كلية</title>
+  <link href="css/bootstrap5.0.1.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #e3eefd, #f8fafc 60%, #e3eefd);
+      direction: rtl;
+    }
+    header {
+      background: linear-gradient(to right, #275595, #003366);
+      color: white;
+      padding: 28px 10px 18px 10px;
+      text-align: center;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      box-shadow: 0 4px 16px rgba(44,62,80,0.10);
+      margin-bottom: 0;
+    }
+    header h1 {
+      font-size: 2.1rem;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+    nav {
+      background: #275595;
+      padding: 12px 0 12px 0;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      border-bottom: 2px solid #003366;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 22px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.08rem;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+    nav a:hover, nav a.active {
+      background: #003366;
+      color: #fff;
+    }
+    .container {
+      display: flex;
+      min-height: 70vh;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+      margin: 32px auto 0 auto;
+      max-width: 1100px;
+      padding: 0;
+    }
+    .sidebar {
+      width: 220px;
+      background: #f5f8fa;
+      padding: 24px 12px 24px 12px;
+      display: none;
+      border-radius: 18px 0 0 18px;
+      box-shadow: 2px 0 8px rgba(44,62,80,0.04);
+    }
+    .sidebar button {
+      display: block;
+      width: 100%;
+      padding: 12px 0;
+      margin-bottom: 12px;
+      background: #275595;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+    .sidebar button:hover {
+      background: #003366;
+    }
+    .content {
+      flex-grow: 1;
+      padding: 40px 32px 32px 32px;
+      border-radius: 0 18px 18px 0;
+      background: #fff;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: none; }
+    }
+    .search-box input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1.05rem;
+      margin-left: 8px;
+    }
+    .search-box button {
+      padding: 10px 18px;
+      border: none;
+      background: #275595;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+    .search-box button:hover {
+      background: #003366;
+    }
+    footer {
+      background: linear-gradient(to right, #0e2d59, #275595);
+      color: white;
+      padding: 22px 0 18px 0;
+      text-align: center;
+      margin-top: 40px;
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+      box-shadow: 0 -2px 8px rgba(44,62,80,0.07);
+      font-size: 1.08rem;
+    }
+    @media (max-width: 900px) {
+      .container { flex-direction: column; max-width: 98vw; }
+      .sidebar { width: 100%; border-radius: 18px 18px 0 0; box-shadow: none; }
+      .content { border-radius: 0 0 18px 18px; padding: 24px 8px; }
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.2rem; }
+      nav { gap: 8px; padding: 8px 0; }
+      .sidebar button { font-size: 0.95rem; padding: 10px 0; }
+      .content { padding: 12px 2px; }
+    }
+  </style>
+  <script>
+    // Faculty data
+    const faculties = {
+      applied: {
+        name: 'كلية العلوم الطبية التطبيقية',
+        about: 'تهدف كلية العلوم الطبية التطبيقية إلى تقديم تعليم متميز في مجالات العلوم الطبية.',
+        vision: 'نسعى للريادة في التعليم الطبي التطبيقي وخدمة المجتمع.',
+        departments: ['قسم المختبرات الطبية', 'قسم العلاج الطبيعي', 'قسم التغذية العلاجية'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية العلوم الطبية التطبيقية | الخرطوم، السودان'
+      },
+      nursing: {
+        name: 'كلية التمريض',
+        about: 'تهدف كلية التمريض إلى إعداد كوادر تمريضية مؤهلة علمياً وعملياً.',
+        vision: 'التميز في التعليم التمريضي وخدمة المجتمع.',
+        departments: ['قسم التمريض الباطني والجراحي', 'قسم تمريض الأطفال', 'قسم تمريض صحة المجتمع'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية التمريض | الخرطوم، السودان'
+      },
+      medicine: {
+        name: 'كلية الطب',
+        about: 'تسعى كلية الطب إلى إعداد أطباء أكفاء ذوي مهارات عالية.',
+        vision: 'الريادة في التعليم الطبي والبحث العلمي.',
+        departments: ['قسم الطب البشري', 'قسم الجراحة', 'قسم الأطفال'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية الطب | الخرطوم، السودان'
+      },
+      dentistry: {
+        name: 'كلية طب الأسنان',
+        about: 'تسعى كلية طب الأسنان إلى إعداد أطباء أسنان متميزين.',
+        vision: 'التميز في تعليم طب الأسنان وخدمة المجتمع.',
+        departments: ['قسم علاج الأسنان', 'قسم جراحة الفم', 'قسم تقويم الأسنان'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية طب الأسنان | الخرطوم، السودان'
+      },
+      pharmacy: {
+        name: 'كلية الصيدلة',
+        about: 'تسعى كلية الصيدلة إلى إعداد صيادلة ذوي كفاءة عالية.',
+        vision: 'الريادة في التعليم الصيدلي والبحث العلمي.',
+        departments: ['قسم الصيدلانيات', 'قسم العقاقير', 'قسم الكيمياء الصيدلانية'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية الصيدلة | الخرطوم، السودان'
+      },
+      eng: {
+        name: 'كلية الهندسة',
+        about: 'تسعى كلية الهندسة إلى إعداد مهندسين متميزين في مختلف التخصصات.',
+        vision: 'التميز في التعليم الهندسي والبحث العلمي.',
+        departments: ['قسم الهندسة المدنية', 'قسم الهندسة الكهربائية', 'قسم الهندسة الميكانيكية'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية الهندسة | الخرطوم، السودان'
+      },
+      faculty_staff: {
+        name: 'كلية تقنية المعلومات',
+        about: 'تسعى كلية تقنية المعلومات إلى الريادة في تعليم تقانة المعلومات.',
+        vision: 'التميز في التعليم التقني وخدمة المجتمع.',
+        departments: ['علوم الحاسوب', 'نظم المعلومات', 'تقنية الشبكات'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية تقنية المعلومات | الخرطوم، السودان'
+      },
+      managment: {
+        name: 'كلية العلوم الإدارية',
+        about: 'تسعى كلية العلوم الإدارية إلى إعداد كوادر إدارية متميزة.',
+        vision: 'التميز في التعليم الإداري وخدمة المجتمع.',
+        departments: ['قسم إدارة الأعمال', 'قسم المحاسبة', 'قسم التسويق'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية العلوم الإدارية | الخرطوم، السودان'
+      },
+      ecinomics: {
+        name: 'كلية الاقتصاد والعلوم السياسية',
+        about: 'تسعى كلية الاقتصاد والعلوم السياسية إلى إعداد كوادر اقتصادية وسياسية متميزة.',
+        vision: 'التميز في التعليم الاقتصادي والسياسي.',
+        departments: ['قسم الاقتصاد', 'قسم العلوم السياسية'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية الاقتصاد والعلوم السياسية | الخرطوم، السودان'
+      },
+      law: {
+        name: 'كلية الشريعة والقانون',
+        about: 'تسعى كلية الشريعة والقانون إلى إعداد كوادر قانونية متميزة.',
+        vision: 'التميز في التعليم القانوني وخدمة المجتمع.',
+        departments: ['قسم الشريعة', 'قسم القانون العام', 'قسم القانون الخاص'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية الشريعة والقانون | الخرطوم، السودان'
+      },
+      arabic: {
+        name: 'كلية اللغة العربية',
+        about: 'تسعى كلية اللغة العربية إلى الريادة في تعليم اللغة العربية وآدابها.',
+        vision: 'التميز في تعليم اللغة العربية وخدمة المجتمع.',
+        departments: ['قسم اللغة', 'قسم الأدب', 'قسم البلاغة والنقد'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية اللغة العربية | الخرطوم، السودان'
+      },
+      islamic: {
+        name: 'كلية الدراسات الإسلامية',
+        about: 'تهدف كلية الدراسات الإسلامية إلى تأهيل الدارسين في مجالات الشريعة والعلوم الإسلامية بعمق ومعاصرة.',
+        vision: 'نسعى للتميز في تعليم الدراسات الإسلامية وفق منهج وسطي متوازن يخدم المجتمع والإنسانية.',
+        departments: ['قسم الفقه وأصوله', 'قسم العقيدة والدعوة', 'قسم التفسير وعلوم القرآن'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية الدراسات الإسلامية | الخرطوم، السودان'
+      },
+      media: {
+        name: 'كلية الإعلام',
+        about: 'تسعى كلية الإعلام إلى إعداد إعلاميين متميزين.',
+        vision: 'التميز في التعليم الإعلامي وخدمة المجتمع.',
+        departments: ['قسم الصحافة', 'قسم الإذاعة والتلفزيون', 'قسم العلاقات العامة'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية الإعلام | الخرطوم، السودان'
+      },
+      education: {
+        name: 'كلية التربية',
+        about: 'تسعى كلية التربية إلى إعداد معلمين متميزين.',
+        vision: 'التميز في التعليم التربوي وخدمة المجتمع.',
+        departments: ['قسم أصول التربية', 'قسم المناهج وطرق التدريس', 'قسم علم النفس التربوي'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية التربية | الخرطوم، السودان'
+      },
+      arts: {
+        name: 'كلية الآداب',
+        about: 'تسعى كلية الآداب إلى الريادة في العلوم الإنسانية.',
+        vision: 'التميز في التعليم الأدبي وخدمة المجتمع.',
+        departments: ['قسم اللغة الإنجليزية', 'قسم الجغرافيا', 'قسم التاريخ'],
+        news: 'سيتم قريبًا نشر آخر أخبار الكلية.',
+        staff: 'اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.',
+        gallery: 'صور من أنشطة وفعاليات الكلية سيتم عرضها قريبًا.',
+        footer: 'جامعة إفريقيا العالمية - كلية الآداب | الخرطوم، السودان'
+      }
+    };
+    function getFacultyKey() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('fac') || 'applied';
+    }
+    function fillFacultyData() {
+      const key = getFacultyKey();
+      const f = faculties[key] || faculties['applied'];
+      document.getElementById('faculty-title').textContent = 'أعضاء هيئة التدريس - ' + f.name;
+      document.querySelector('header h1').textContent = f.name;
+      document.getElementById('about-content').textContent = f.about;
+      document.getElementById('vision-content').textContent = f.vision;
+      document.getElementById('departments-list').innerHTML = f.departments.map(dep => `<li>${dep}</li>`).join('');
+      document.getElementById('news-content').textContent = f.news;
+      document.getElementById('staff-content').textContent = f.staff;
+      document.getElementById('gallery-content').textContent = f.gallery;
+      document.getElementById('faculty-footer').textContent = f.footer;
+    }
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(sec => sec.classList.remove('active'));
+      const selected = document.getElementById(id);
+      if (selected) selected.classList.add('active');
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`[onclick="showSection('${id}')"]`);
+      if (activeLink) activeLink.classList.add('active');
+      const sidebar = document.querySelector('.sidebar');
+      if (id === 'staff' || id === 'search' || id === 'add' || id === 'edit') {
+        sidebar.style.display = 'block';
+      } else {
+        sidebar.style.display = 'none';
+      }
+    }
+    window.onload = () => {
+      fillFacultyData();
+      showSection('home');
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>كلية</h1>
+  </header>
+  <nav>
+    <a onclick="showSection('home')" class="active">الرئيسية</a>
+    <a onclick="showSection('about')">عن الكلية</a>
+    <a onclick="showSection('vision')">الرؤية والرسالة</a>
+    <a onclick="showSection('departments')">الأقسام العلمية</a>
+    <a onclick="showSection('news')">الأخبار والأنشطة</a>
+    <a onclick="showSection('staff')">أعضاء هيئة التدريس</a>
+    <a onclick="showSection('gallery')">معرض الصور</a>
+  </nav>
+  <div class="container">
+    <div class="sidebar">
+      <button onclick="showSection('staff')">الرئيسية</button>
+      <button onclick="showSection('search')">البحث عن عضو</button>
+      <button onclick="showSection('add')">إضافة عضو</button>
+      <button onclick="showSection('edit')">تعديل / حذف عضو</button>
+    </div>
+    <div class="content">
+      <div id="home" class="section active">
+        <h2>الصفحة الرئيسية</h2>
+        <p id="home-content">مرحباً بكم في <span id="faculty-name">كلية</span> - جامعة إفريقيا العالمية.</p>
+      </div>
+      <div id="search" class="section">
+        <h2>البحث عن عضو هيئة تدريس</h2>
+        <div class="search-box">
+          <input type="text" placeholder="ادخل اسم العضو...">
+          <button>بحث</button>
+        </div>
+      </div>
+      <div id="add" class="section">
+        <h2>إضافة عضو هيئة تدريس</h2>
+        <p>نموذج الإضافة سيكون هنا لاحقًا.</p>
+      </div>
+      <div id="edit" class="section">
+        <h2>تعديل / حذف عضو هيئة تدريس</h2>
+        <p>نموذج التعديل أو الحذف سيكون هنا لاحقًا.</p>
+      </div>
+      <div id="about" class="section">
+        <h2>عن الكلية</h2>
+        <p id="about-content"></p>
+      </div>
+      <div id="vision" class="section">
+        <h2>الرؤية والرسالة</h2>
+        <p id="vision-content"></p>
+      </div>
+      <div id="departments" class="section">
+        <h2>الأقسام العلمية</h2>
+        <ul id="departments-list"></ul>
+      </div>
+      <div id="news" class="section">
+        <h2>الأخبار والأنشطة</h2>
+        <p id="news-content"></p>
+      </div>
+      <div id="staff" class="section">
+        <h2>أعضاء هيئة التدريس</h2>
+        <p id="staff-content"></p>
+      </div>
+      <div id="gallery" class="section">
+        <h2>معرض الصور</h2>
+        <p id="gallery-content"></p>
+      </div>
+    </div>
+  </div>
+  <footer id="faculty-footer">
+    جامعة إفريقيا العالمية - كلية | الخرطوم، السودان
+  </footer>
+</body>
+</html>

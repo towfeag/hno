@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta http-equiv="refresh" content="0; url=faculty.html?fac=islamic">
+</head>
+<body>
+  <p>يتم تحويلك إلى صفحة كلية الشريعة والدراسات الإسلامية...</p>
+</body>
+</html>
+    .search-box button:hover { background-color: #09254c; }
+    footer { background-color: #0e2d59; color: white; padding: 20px; text-align: center; margin-top: 40px; }
+  </style>
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(sec => sec.classList.remove('active'));
+      const selected = document.getElementById(id);
+      if (selected) selected.classList.add('active');
+
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`[onclick="showSection('${id}')"]`);
+      if (activeLink) activeLink.classList.add('active');
+
+      const sidebar = document.querySelector('.sidebar');
+      if (id === 'staff' || id === 'search' || id === 'add' || id === 'edit') {
+        sidebar.style.display = 'block';
+      } else {
+        sidebar.style.display = 'none';
+      }
+    }
+    window.onload = () => {
+      showSection('home');
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1> كلية الدراسات الإسلامية</h1>
+  </header>
+  <nav>
+    <a onclick="showSection('home')" class="active">الرئيسية</a>
+    <a onclick="showSection('about')">عن الكلية</a>
+    <a onclick="showSection('vision')">الرؤية والرسالة</a>
+    <a onclick="showSection('departments')">الأقسام العلمية</a>
+    <a onclick="showSection('news')">الأخبار والأنشطة</a>
+    <a onclick="showSection('staff')">أعضاء هيئة التدريس</a>
+    <a onclick="showSection('gallery')">معرض الصور</a>
+  </nav>
+  <div class="container">
+    <div class="sidebar">
+      <button onclick="showSection('staff')">الرئيسية</button>
+      <button onclick="showSection('search')">البحث عن عضو</button>
+      <button onclick="showSection('add')">إضافة عضو</button>
+      <button onclick="showSection('edit')">تعديل / حذف عضو</button>
+    </div>
+    <div class="content">
+      <div id="home" class="section active">
+        <h2>الصفحة الرئيسية</h2>
+        <p>مرحباً بكم في كلية الدراسات الإسلامية - جامعة إفريقيا العالمية.</p>
+      </div>
+      <div id="search" class="section">
+        <h2>البحث عن عضو هيئة تدريس</h2>
+        <div class="search-box">
+          <input type="text" placeholder="ادخل اسم العضو...">
+          <button>بحث</button>
+        </div>
+      </div>
+      <div id="add" class="section">
+        <h2>إضافة عضو هيئة تدريس</h2>
+        <p>نموذج الإضافة سيكون هنا لاحقًا.</p>
+      </div>
+      <div id="edit" class="section">
+        <h2>تعديل / حذف عضو هيئة تدريس</h2>
+        <p>نموذج التعديل أو الحذف سيكون هنا لاحقًا.</p>
+      </div>
+      <div id="about" class="section">
+        <h2>عن الكلية</h2>
+        <p>تهدف كلية الدراسات الإسلامية إلى تأهيل الدارسين في مجالات الشريعة والعلوم الإسلامية بعمق ومعاصرة.</p>
+      </div>
+      <div id="vision" class="section">
+        <h2>الرؤية والرسالة</h2>
+        <p>نسعى للتميز في تعليم الدراسات الإسلامية وفق منهج وسطي متوازن يخدم المجتمع والإنسانية.</p>
+      </div>
+      <div id="departments" class="section">
+        <h2>الأقسام العلمية</h2>
+        <ul>
+          <li>قسم الفقه وأصوله</li>
+          <li>قسم العقيدة والدعوة</li>
+          <li>قسم التفسير وعلوم القرآن</li>
+        </ul>
+      </div>
+      <div id="news" class="section">
+        <h2>الأخبار والأنشطة</h2>
+        <p>سيتم قريبًا نشر آخر أخبار كلية الدراسات الإسلامية.</p>
+      </div>
+      <div id="staff" class="section">
+        <h2>أعضاء هيئة التدريس</h2>
+        <p>اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.</p>
+      </div>
+      <div id="gallery" class="section">
+        <h2>معرض الصور</h2>
+        <p>صور من أنشطة وفعاليات كلية الدراسات الإسلامية سيتم عرضها قريبًا.</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    جامعة إفريقيا العالمية - كلية الدراسات الإسلامية | الخرطوم، السودان
+  </footer>
+</body>
+</html>

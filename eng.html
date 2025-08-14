@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta http-equiv="refresh" content="0; url=faculty.html?fac=eng">
+</head>
+<body>
+  <p>يتم تحويلك إلى صفحة كلية الهندسة...</p>
+</body>
+</html>
+      background-color: #275595;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    nav a:hover, nav a.active {
+      background-color: #09254c;
+    }
+    .container {
+      display: flex;
+      min-height: 70vh;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #f1f1f1;
+      padding: 20px;
+      display: none;
+    }
+    .sidebar button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #275595;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .sidebar button:hover {
+      background-color: #09254c;
+    }
+    .content {
+      flex-grow: 1;
+      padding: 40px;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+    .search-box input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .search-box button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #275595;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .search-box button:hover {
+      background-color: #09254c;
+    }
+    footer {
+      background-color: #0e2d59;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(sec => sec.classList.remove('active'));
+      const selected = document.getElementById(id);
+      if (selected) selected.classList.add('active');
+
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`[onclick="showSection('${id}')"]`);
+      if (activeLink) activeLink.classList.add('active');
+
+      const sidebar = document.querySelector('.sidebar');
+      if (id === 'staff' || id === 'search' || id === 'add' || id === 'edit') {
+        sidebar.style.display = 'block';
+      } else {
+        sidebar.style.display = 'none';
+      }
+    }
+
+    window.onload = () => {
+      showSection('home');
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1> كلية الهندسة</h1>
+  </header>
+  <nav>
+    <a onclick="showSection('home')" class="active">الرئيسية</a>
+    <a onclick="showSection('about')">عن الكلية</a>
+    <a onclick="showSection('vision')">الرؤية والرسالة</a>
+    <a onclick="showSection('departments')">الأقسام العلمية</a>
+    <a onclick="showSection('news')">الأخبار والأنشطة</a>
+    <a onclick="showSection('staff')">أعضاء هيئة التدريس</a>
+    <a onclick="showSection('gallery')">معرض الصور</a>
+  </nav>
+  <div class="container">
+    <div class="sidebar">
+      <button onclick="showSection('staff')">الرئيسية</button>
+      <button onclick="showSection('search')">البحث عن عضو</button>
+      <button onclick="showSection('add')">إضافة عضو</button>
+      <button onclick="showSection('edit')">تعديل / حذف عضو</button>
+    </div>
+    <div class="content">
+      <div id="home" class="section active">
+        <h2>الصفحة الرئيسية</h2>
+        <p>مرحباً بكم في كلية الهندسة - جامعة إفريقيا العالمية.</p>
+      </div>
+      <div id="search" class="section">
+        <h2>البحث عن عضو هيئة تدريس</h2>
+        <div class="search-box">
+          <input type="text" placeholder="ادخل اسم العضو...">
+          <button>بحث</button>
+        </div>
+      </div>
+      <div id="add" class="section">
+        <h2>إضافة عضو هيئة تدريس</h2>
+        <p>نموذج الإضافة سيكون هنا لاحقًا.</p>
+      </div>
+      <div id="edit" class="section">
+        <h2>تعديل / حذف عضو هيئة تدريس</h2>
+        <p>نموذج التعديل أو الحذف سيكون هنا لاحقًا.</p>
+      </div>
+      <div id="about" class="section">
+        <h2>عن الكلية</h2>
+        <p>تهدف كلية الهندسة إلى تخريج مهندسين متميزين في مختلف التخصصات الهندسية.</p>
+      </div>
+      <div id="vision" class="section">
+        <h2>الرؤية والرسالة</h2>
+        <p>الريادة في التعليم الهندسي والبحث العلمي وخدمة المجتمع.</p>
+      </div>
+      <div id="departments" class="section">
+        <h2>الأقسام العلمية</h2>
+        <ul>
+          <li>قسم الهندسة الكهربائية</li>
+          <li>قسم الهندسة المدنية</li>
+          <li>قسم الهندسة الميكانيكية</li>
+        </ul>
+      </div>
+      <div id="news" class="section">
+        <h2>الأخبار والأنشطة</h2>
+        <p>سيتم قريبًا نشر آخر أخبار كلية الهندسة.</p>
+      </div>
+      <div id="staff" class="section">
+        <h2>أعضاء هيئة التدريس</h2>
+        <p>اختر من القائمة الجانبية للقيام بعمليات البحث أو الإضافة أو التعديل.</p>
+      </div>
+      <div id="gallery" class="section">
+        <h2>معرض الصور</h2>
+        <p>صور من أنشطة وفعاليات كلية الهندسة سيتم عرضها قريبًا.</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    جامعة إفريقيا العالمية - كلية الهندسة | الخرطوم، السودان
+  </footer>
+</body>
+</html>

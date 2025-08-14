@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول - جامعة إفريقيا العالمية</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to right, #003366, #336699);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background-color: #ffffff;
+      color: #000;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      width: 400px;
+      text-align: center;
+    }
+    .login-container h2 {
+      color: #1c4a8f;
+      margin-bottom: 20px;
+    }
+    input[type="text"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #1c4a8f;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #163d73;
+    }
+    .helpers, .language-switch {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .helpers a,
+    .language-switch a {
+      color: #1c4a8f;
+      text-decoration: none;
+    }
+  </style>
+  
+</head>
+<body class="form">
+  <div class="login-container">
+    <h2>تسجيل الدخول </h2>
+    <h2>جامعة إفريقيا العالمية</h2>
+    <link href="css/bootstrap5.0.1.min.css" rel="stylesheet">
+    <form method="POST" action="login.php">
+      <div id="login-alert"></div>
+    <script>
+      // Show error message from URL param using JS
+      const params = new URLSearchParams(window.location.search);
+      let msg = '';
+      if (params.get('error') === 'invalid') {
+        msg = 'اسم المستخدم أو كلمة المرور غير صحيحة.';
+      }
+      if (msg) {
+        document.getElementById('login-alert').innerHTML = `<div class="alert alert-danger text-center fw-bold" role="alert" style="font-size:18px;letter-spacing:1px;">${msg}</div>`;
+      }
+    </script>
+      <input type="text" name="username" placeholder="اسم المستخدم" required>
+      <input type="password" name="password" placeholder="كلمة المرور" required>
+      <button type="submit">تسجيل الدخول</button>
+      <div class="helpers">
+        <a href="#">نسيت كلمة المرور؟</a> | <a href="register.html">مستخدم جديد</a>
+      </div>
+      <div class="language-switch">
+        اللغة: <a href="#" onclick="document.documentElement.lang='en';document.documentElement.dir='ltr';">English</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
